@@ -19,25 +19,10 @@ hook.Add('PlayerDisconnected', addonName, function( ply )
 	if (timeToRemove > 0) then
 		local ragdoll = ply:CreateRagdoll()
 		if IsValid( ragdoll ) then
-			ragdoll.DisconnectedPlayer = true
-
 			-- Basic Info
-			ragdoll.ActiveWeapon = ply:GetActiveWeapon()
 			ragdoll.PlayerAngles = ply:EyeAngles()
 			ragdoll.SteamID = getSteamID( ply )
-			ragdoll.Weapons = {}
-
-			-- Weapons
-			for _, wep in ipairs( ply:GetWeapons() ) do
-				ragdoll.Weapons[ wep:GetClass() ] = wep
-				ply:DropWeapon( wep, vector_zero, vector_zero )
-				wep:SetCollisionGroup( 12 )
-				wep:SetPos( ragdoll:GetPos() )
-				wep:SetParent( ragdoll )
-				wep:SetOwner( ragdoll )
-				wep:DrawShadow( false )
-				wep:SetNoDraw( true )
-			end
+			ragdoll.DisconnectedPlayer = true
 
 			-- Remove Delay
 			timer.Simple(timeToRemove, function()
@@ -94,7 +79,7 @@ hook.Add('PlayerInitialSpawn', addonName, function( ply )
 
 			for class, wep in pairs( ent.Weapons ) do
 				if not IsValid( wep ) then
-					wep = ents.Create( wep )
+					wep = ents.Create( class )
 					if IsValid( wep ) then
 						wep:SetPos( pos )
 						wep:Spawn()
@@ -102,7 +87,6 @@ hook.Add('PlayerInitialSpawn', addonName, function( ply )
 				end
 
 				if IsValid( wep ) then
-					wep:SetOwner()
 					wep:SetParent()
 					wep:SetNoDraw( false )
 					ply:PickupWeapon( wep )
@@ -114,6 +98,16 @@ hook.Add('PlayerInitialSpawn', addonName, function( ply )
 			local activeWeapon = ent.ActiveWeapon
 			if IsValid( activeWeapon ) then
 				ply:SetActiveWeapon( activeWeapon )
+			else
+				local class = ent.ActiveWeaponClass
+				if isstring( class ) then
+					activeWeapon = ents.Create( class )
+					if IsValid( activeWeapon ) then
+						activeWeapon:SetPos( pos )
+						activeWeapon:Spawn()
+						ply:PickupWeapon( activeWeapon )
+					end
+				end
 			end
 
 			-- Bone Manipulations
