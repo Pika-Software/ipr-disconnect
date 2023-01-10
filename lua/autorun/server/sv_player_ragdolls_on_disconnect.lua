@@ -96,9 +96,7 @@ hook.Add('PlayerInitialSpawn', addonName, function( ply )
 
 			-- Active Weapon
 			local activeWeapon = ent.ActiveWeapon
-			if IsValid( activeWeapon ) then
-				ply:SetActiveWeapon( activeWeapon )
-			else
+			if not IsValid( activeWeapon ) then
 				local class = ent.ActiveWeaponClass
 				if isstring( class ) then
 					activeWeapon = ents.Create( class )
@@ -108,6 +106,10 @@ hook.Add('PlayerInitialSpawn', addonName, function( ply )
 						ply:PickupWeapon( activeWeapon )
 					end
 				end
+			end
+
+			if IsValid( activeWeapon ) then
+				ply:SetActiveWeapon( activeWeapon )
 			end
 
 			-- Bone Manipulations
