@@ -18,32 +18,34 @@ hook.Add('PlayerDisconnected', addonName, function( ply )
 	local timeToRemove = cvars.Number( 'ipr_remove_delay', 5 ) * 60
 	if (timeToRemove > 0) then
 		local ragdoll = ply:CreateRagdoll()
-		ragdoll.DisconnectedPlayer = true
+		if IsValid( ragdoll ) then
+			ragdoll.DisconnectedPlayer = true
 
-		-- Basic Info
-		ragdoll.ActiveWeapon = ply:GetActiveWeapon()
-		ragdoll.PlayerAngles = ply:EyeAngles()
-		ragdoll.SteamID = getSteamID( ply )
-		ragdoll.Weapons = {}
+			-- Basic Info
+			ragdoll.ActiveWeapon = ply:GetActiveWeapon()
+			ragdoll.PlayerAngles = ply:EyeAngles()
+			ragdoll.SteamID = getSteamID( ply )
+			ragdoll.Weapons = {}
 
-		-- Weapons
-		for _, wep in ipairs( ply:GetWeapons() ) do
-			ragdoll.Weapons[ wep:GetClass() ] = wep
-			ply:DropWeapon( wep, vector_zero, vector_zero )
-			wep:SetCollisionGroup( 12 )
-			wep:SetPos( ragdoll:GetPos() )
-			wep:SetParent( ragdoll )
-			wep:SetOwner( ragdoll )
-			wep:DrawShadow( false )
-			wep:SetNoDraw( true )
-		end
-
-		-- Remove Delay
-		timer.Simple(timeToRemove, function()
-			if IsValid( ragdoll ) then
-				ragdoll:Remove()
+			-- Weapons
+			for _, wep in ipairs( ply:GetWeapons() ) do
+				ragdoll.Weapons[ wep:GetClass() ] = wep
+				ply:DropWeapon( wep, vector_zero, vector_zero )
+				wep:SetCollisionGroup( 12 )
+				wep:SetPos( ragdoll:GetPos() )
+				wep:SetParent( ragdoll )
+				wep:SetOwner( ragdoll )
+				wep:DrawShadow( false )
+				wep:SetNoDraw( true )
 			end
-		end)
+
+			-- Remove Delay
+			timer.Simple(timeToRemove, function()
+				if IsValid( ragdoll ) then
+					ragdoll:Remove()
+				end
+			end)
+		end
 
 		return
 	end
