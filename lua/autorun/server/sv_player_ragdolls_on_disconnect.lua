@@ -56,7 +56,7 @@ end)
 hook.Add('PlayerInitialSpawn', addonName, function( ply )
 	local steamID = getSteamID( ply )
 	for _, ent in ipairs( ents.GetAll() ) do
-		if ent.PlayerRagdoll and ent.DisconnectedPlayer and (ent.SteamID == steamID) then
+		if ent:IsPlayerRagdoll() and ent.DisconnectedPlayer and (ent.SteamID == steamID) then
 			-- Model
 			ply:SetModel( ent:GetModel() )
 
