@@ -71,39 +71,11 @@ hook.Add('PlayerInitialSpawn', addonName, function( ply )
 				-- Weapons
 				ply:StripWeapons()
 
-				for class, wep in pairs( ent.Weapons ) do
-					if not IsValid( wep ) then
-						wep = ents.Create( class )
-						if IsValid( wep ) then
-							wep:SetPos( pos )
-							wep:Spawn()
-						end
+				for _, class in ipairs( ent.Weapons ) do
+					local wep = ply:Give( class )
+					if IsValid( wep ) and (class == ent.ActiveWeapon) then
+						ply:SetActiveWeapon( wep )
 					end
-
-					if IsValid( wep ) then
-						wep:SetParent()
-						wep:SetNoDraw( false )
-						ply:PickupWeapon( wep )
-						wep:SetCollisionGroup( COLLISION_GROUP_NONE )
-					end
-				end
-
-				-- Active Weapon
-				local activeWeapon = ent.ActiveWeapon
-				if not IsValid( activeWeapon ) then
-					local class = ent.ActiveWeaponClass
-					if isstring( class ) then
-						activeWeapon = ents.Create( class )
-						if IsValid( activeWeapon ) then
-							activeWeapon:SetPos( pos )
-							activeWeapon:Spawn()
-							ply:PickupWeapon( activeWeapon )
-						end
-					end
-				end
-
-				if IsValid( activeWeapon ) then
-					ply:SetActiveWeapon( activeWeapon )
 				end
 
 				-- Bone Manipulations
