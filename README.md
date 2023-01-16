@@ -3,4 +3,3 @@ Addon turns disconnected player in ragdoll, they can be dragged, painted or remo
 
 ## Requires
 - [Improved Player Ragdolls](https://github.com/Pika-Software/gmod_improved_player_ragdolls)
-- [PLib](https://github.com/Pika-Software/gmod_plib)
