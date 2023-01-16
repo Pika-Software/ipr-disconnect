@@ -1,5 +1,6 @@
-# gmod_player_ragdolls_on_disconnect
-Player Ragdolls on Disconnect
+# Player Ragdolls on Disconnect
+Addon turns disconnected player in ragdoll, they can be dragged, painted or removed. If a player connected to server again and ragdoll will still exist, he will appear in place of the ragdoll and it will apply all the previously imposed changes.
 
 ## Requires
-- [gmod_improved_player_ragdolls](https://github.com/Pika-Software/gmod_improved_player_ragdolls)
+- [Improved Player Ragdolls](https://github.com/Pika-Software/gmod_improved_player_ragdolls)
+- [PLib](https://github.com/Pika-Software/gmod_plib)
