@@ -89,6 +89,11 @@ hook.Add('PlayerInitialSpawn', addonName, function( ply )
 				-- Velocity
 				ply:SetVelocity( ent:GetVelocity() )
 
+				-- Fire Transmission
+				if ent:IsOnFire() then
+					ply:Ignite( 10, 0 )
+				end
+
 				-- Removing
 				ent:Remove()
 			end)
