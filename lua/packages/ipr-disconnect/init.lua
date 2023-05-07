@@ -4,7 +4,7 @@ import( gpm.LuaPackageExists( "packages/ipr-base" ) and "packages/ipr-base" or "
 local packageName = gpm.Package:GetIdentifier()
 local hook = hook
 
-for version, gPackage in pairs( gpm.packages.Get( "ipr-base" ) ) do
+for version, gPackage in pairs( gpm.packages.Get( "packages/ipr-base" ) ) do
 	hook.Remove( "PlayerDisconnected", gPackage:GetIdentifier() )
 end
 
