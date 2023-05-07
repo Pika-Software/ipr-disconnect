@@ -84,7 +84,7 @@ hook.Add( "PlayerRagdollCreated", packageName, function( ply, ragdoll )
 end )
 
 hook.Add( "PlayerInitialSpawn", packageName, function( ply, transition  )
-	if transition then return end
+	if transition or ply:IsBot() then return end
 	ply:SetNotSolid( true )
 	ply:SetNoDraw( true )
 end )
