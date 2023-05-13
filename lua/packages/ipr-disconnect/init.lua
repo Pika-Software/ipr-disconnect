@@ -1,12 +1,10 @@
-import( gpm.LuaPackageExists( "packages/glua-extensions" ) and "packages/glua-extensions" or "https://github.com/Pika-Software/glua-extensions" )
-import( gpm.LuaPackageExists( "packages/ipr-base" ) and "packages/ipr-base" or "https://github.com/Pika-Software/ipr-base" )
+import( gpm.PackageExists( "packages/glua-extensions" ) and "packages/glua-extensions" or "https://github.com/Pika-Software/glua-extensions" )
+import( gpm.PackageExists( "packages/ipr-base" ) and "packages/ipr-base" or "https://github.com/Pika-Software/ipr-base" )
 
 local packageName = gpm.Package:GetIdentifier()
 local hook = hook
 
-for version, gPackage in pairs( gpm.packages.Get( "packages/ipr-base" ) ) do
-	hook.Remove( "PlayerDisconnected", gPackage:GetIdentifier() )
-end
+hook.Remove( "PlayerDisconnected", gpm.package.Get( "packages/ipr-base" ):GetIdentifier() )
 
 hook.Add( "PlayerInitialized", packageName, function( ply )
 	if ply:IsBot() then return end
