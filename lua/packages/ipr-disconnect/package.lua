@@ -1,5 +1,5 @@
 name = "ipr-disconnect"
 main = "init.lua"
-version = 000100
+version = 010000
 autorun = true
 client = false

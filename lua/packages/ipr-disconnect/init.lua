@@ -4,7 +4,9 @@ import( gpm.PackageExists( "packages/ipr-base" ) and "packages/ipr-base" or "htt
 local packageName = gpm.Package:GetIdentifier()
 local hook = hook
 
-hook.Remove( "PlayerDisconnected", gpm.package.Get( "packages/ipr-base" ):GetIdentifier() )
+for _, package in ipairs( gpm.package.Find( "ipr-base", false, true ) ) do
+	hook.Remove( "PlayerDisconnected", package:GetIdentifier() )
+end
 
 hook.Add( "PlayerInitialized", packageName, function( ply )
 	if ply:IsBot() then return end
