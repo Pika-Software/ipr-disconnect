@@ -1,5 +1,5 @@
-require( "packages/glua-extensions", "https://github.com/Pika-Software/glua-extensions" )
-require( "packages/ipr-base", "https://github.com/Pika-Software/ipr-base" )
+install( "packages/glua-extensions", "https://github.com/Pika-Software/glua-extensions" )
+install( "packages/ipr-base", "https://github.com/Pika-Software/ipr-base" )
 
 local packageName = gpm.Package:GetIdentifier()
 local hook = hook
