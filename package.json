@@ -1,7 +1,0 @@
-{
-    "name": "ipr-disconnect",
-    "files": {
-        "lua/packages/ipr-disconnect/package.lua": "https://raw.githubusercontent.com/Pika-Software/ipr-disconnect/master/lua/packages/ipr-disconnect/package.lua",
-        "lua/packages/ipr-disconnect/init.lua": "https://raw.githubusercontent.com/Pika-Software/ipr-disconnect/master/lua/packages/ipr-disconnect/init.lua"
-    }
-}
