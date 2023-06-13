@@ -1,14 +1,13 @@
 install( "packages/glua-extensions", "https://github.com/Pika-Software/glua-extensions" )
 install( "packages/ipr-base", "https://github.com/Pika-Software/ipr-base" )
 
-local packageName = gpm.Package:GetIdentifier()
 local hook = hook
 
-for _, package in ipairs( gpm.package.Find( "ipr-base", false, true ) ) do
-	hook.Remove( "PlayerDisconnected", package:GetIdentifier() )
+for _, pkg in ipairs( gpm.package.Find( "ipr%-base", false, false ) ) do
+	_G.hook.Remove( "PlayerDisconnected", pkg:GetIdentifier( "RemoveOnDisconnect" ) )
 end
 
-hook.Add( "PlayerInitialized", packageName, function( ply )
+hook.Add( "PlayerInitialized", "PlayerDataSaving", function( ply )
 	if ply:IsBot() then return end
 
 	local sid64 = ply:SteamID64()
@@ -102,7 +101,7 @@ end )
 
 local removeDelay = CreateConVar( "ipr_remove_delay", 5, FCVAR_ARCHIVE, "Time in minutes to remove player ragdolls.", 0, 300 )
 
-hook.Add( "PlayerDisconnected", packageName, function( ply )
+hook.Add( "PlayerDisconnected", "PlayerDataLoading", function( ply )
 	if ply:IsBot() then return end
 	if not ply:Alive() then return end
 
