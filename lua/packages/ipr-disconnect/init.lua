@@ -3,7 +3,7 @@ install( "packages/ipr-base", "https://github.com/Pika-Software/ipr-base" )
 
 local hook = hook
 
-for _, pkg in ipairs( gpm.package.Find( "ipr%-base", false, false ) ) do
+for _, pkg in ipairs( gpm.Find( "ipr%-base", false, false ) ) do
 	_G.hook.Remove( "PlayerDisconnected", pkg:GetIdentifier( "RemoveOnDisconnect" ) )
 end
 
