@@ -36,7 +36,7 @@ hook.Add( "PlayerInitialized", "PlayerDataSaving", function( ply )
 		-- Flexes
 		ply:SetFlexScale( ent:GetFlexScale() )
 		for flex = 1, ply:GetFlexNum() do
-			plu:SetFlexWeight( flex, ent:GetFlexWeight( flex ) )
+			ply:SetFlexWeight( flex, ent:GetFlexWeight( flex ) )
 		end
 
 		-- Material
