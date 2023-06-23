@@ -1,6 +1,6 @@
 name = "ipr-disconnect"
-version = 010002
+version = 010003
 autorun = true
 init = {
-    ["client"] = "init.lua"
+    ["server"] = "init.lua"
 }
