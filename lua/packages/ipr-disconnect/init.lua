@@ -4,6 +4,7 @@ install( "packages/ipr-base", "https://github.com/Pika-Software/ipr-base" )
 local packageName = _PKG:GetIdentifier()
 local OBS_MODE_CHASE = OBS_MODE_CHASE
 local timer_Simple = timer.Simple
+local cvars_Bool = cvars.Bool
 local IsValid = IsValid
 local ipairs = ipairs
 local Vector = Vector
@@ -48,8 +49,6 @@ hook.Add( "PlayerDisconnected", "PlayerDataSaving", function( ply )
         entity:Remove()
     end )
 end )
-
-local removeOnSpawn = GetConVar( "ipr_remove_on_spawn" )
 
 hook.Add( "PlayerSpawn", "RemoveOnSpawn", function( ply, _ )
     if ply[ packageName ] then
@@ -153,7 +152,7 @@ hook.Add( "PlayerSpawn", "RemoveOnSpawn", function( ply, _ )
         return
     end
 
-    if removeOnSpawn:GetBool() then
+    if cvars_Bool( "ipr_remove_on_spawn", false ) then
         ply:RemoveRagdoll()
     end
 
