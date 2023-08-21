@@ -4,6 +4,7 @@ install( "packages/ipr-base", "https://github.com/Pika-Software/ipr-base" )
 local packageName = _PKG:GetIdentifier()
 local OBS_MODE_CHASE = OBS_MODE_CHASE
 local timer_Simple = timer.Simple
+local ents_GetAll = ents.GetAll
 local cvars_Bool = cvars.Bool
 local IsValid = IsValid
 local ipairs = ipairs
@@ -50,12 +51,24 @@ hook.Add( "PlayerDisconnected", "PlayerDataSaving", function( ply )
     end )
 end )
 
+
+local function findRagdoll( ply )
+    local uid = ply:UniqueID2()
+    for _, entity in ipairs( ents_GetAll() ) do
+        if not entity:IsPlayerRagdoll() then continue end
+        local ouid = entity:GetNW2Var( "entity-owner" )
+        if not ouid or ouid ~= uid then continue end
+        return entity
+    end
+end
+
 hook.Add( "PlayerSpawn", "RemoveOnSpawn", function( ply, _ )
     if ply[ packageName ] then
         ply[ packageName ] = nil
 
-        local entity = ply:GetRagdollEntity()
+        local entity = findRagdoll( ply )
         if not IsValid( entity ) then return end
+        ply:SetNW2Entity( "player-ragdoll", entity )
 
         if not entity.Alive or entity:Health() < 1 then
             ply:KillSilent()
